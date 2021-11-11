@@ -1,6 +1,10 @@
 .cartWrapper {
-  padding-right: 10px;
   display: flex;
   justify-content: right;
   flex-direction: row;
+}
+
+.cartContent {
+  text-align: right;
+  padding-right: 20px
 }

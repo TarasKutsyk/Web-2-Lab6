@@ -1,7 +1,10 @@
-<h2 [ngStyle]="{'text-align': 'right', 'padding-right': '10px'}" *ngIf="cart.length">Shopping cart</h2>
-<div *ngFor="let item of cart" class="list-group cartWrapper">
-  <app-product-cart-item [cartItem]="item"
-                         (changeCountEvent)="changeItemCount($event)"
-                         (removeEvent)="removeItemById($event)">
-  </app-product-cart-item>
+<div class="cartContent" *ngIf="cart.length">
+  <h2>Shopping cart</h2>
+  <div *ngFor="let item of cart" class="list-group cartWrapper">
+    <app-product-cart-item [cartItem]="item"
+                           (changeCountEvent)="changeItemCount($event)"
+                           (removeEvent)="removeItemById($event)">
+    </app-product-cart-item>
+  </div>
+  <h4>Total price: {{totalPrice}}</h4>
 </div>

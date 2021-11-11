@@ -11,6 +11,7 @@ import {ProductService, ProductAction} from "../../../services/product.service";
 
 export class ProductCartComponent implements OnInit {
   cart: ProductCart = [];
+  totalPrice = 0;
 
   constructor(private productService: ProductService) {
     productService.currentProductAction.subscribe((productAction: ProductAction) => {
@@ -21,6 +22,7 @@ export class ProductCartComponent implements OnInit {
       } else if (productAction.action === Action.UpdateReady) {
         this.updateItem(productAction.payload);
       }
+      this.calculateTotalPrice();
     });
   }
 
@@ -34,6 +36,8 @@ export class ProductCartComponent implements OnInit {
       count: 1
     }
     this.cart.push(newItem);
+
+    this.calculateTotalPrice();
   }
 
   removeItemFromCart(product: Product) {
@@ -49,6 +53,8 @@ export class ProductCartComponent implements OnInit {
   removeItemById({id}: {id?: string}) {
     const indexToDelete = this.cart.findIndex(el => el.item._id === id);
     this.cart.splice(indexToDelete, 1);
+
+    this.calculateTotalPrice();
   }
 
   changeItemCount({id, countChange}: {id?: string, countChange: number}) {
@@ -58,7 +64,15 @@ export class ProductCartComponent implements OnInit {
 
     if (newItemCount > 0) {
       this.cart[indexToUpdate].count = newItemCount;
+      this.calculateTotalPrice();
     }
+  }
+
+  calculateTotalPrice() {
+    // @ts-ignore
+    this.totalPrice = this.cart.reduce((accumulator, currentItem) => {
+      return accumulator + currentItem.item.price * currentItem.count;
+    }, 0)
   }
 
   ngOnInit(): void {
