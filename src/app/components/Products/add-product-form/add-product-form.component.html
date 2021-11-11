@@ -1,0 +1,16 @@
+<hr>
+<form #productForm="ngForm" id="form" (ngSubmit)="submitProduct(productForm)">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" name="name"
+           [(ngModel)]="productFormModel.name">
+  </div>
+  <div class="form-group">
+    <label for="price">Price</label>
+    <input type="number" class="form-control" id="price" name="price"
+           [(ngModel)]="productFormModel.price">
+  </div>
+  <button *ngIf="!editFlag" type="submit" class="btn btn-primary submitBtn">Create</button>
+  <button *ngIf="editFlag" type="submit" class="btn btn-primary submitBtn">Edit</button>
+</form>
+<hr>

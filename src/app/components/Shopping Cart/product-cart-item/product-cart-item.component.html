@@ -1,0 +1,12 @@
+<li class="list-group-item item" [ngClass]="{'active': isActive}"
+    (mouseover)="setActive(true)"
+    (mouseout)="setActive(false)">
+  {{cartItem.item.name}}: {{cartItem.count}}
+  <div class="btn-group changeCountGroup" role="group">
+    <button type="button" class="btn btn-secondary changeCountBtn" (click)="changeCount(1)">+</button>
+    <button type="button" class="btn btn-secondary changeCountBtn" (click)="changeCount(-1)">-</button>
+    <button type="button" class="btn btn-danger" (click)="removeItem()">
+      <i class="fa fa-trash-o"></i>
+    </button>
+  </div>
+</li>

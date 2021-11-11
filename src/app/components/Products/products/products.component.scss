@@ -1,0 +1,9 @@
+.products {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.product {
+  flex-basis: 15%;
+}

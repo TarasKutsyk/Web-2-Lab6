@@ -1,0 +1,15 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{product.name}}</h5>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Price: {{product.price}}</li>
+    </ul>
+    <div class="btn-container">
+      <div><button class="btn btn-success" (click)="updateProduct()">Edit</button></div>
+      <div><button class="btn btn-danger"  (click)="deleteProduct()">Delete</button></div>
+    </div>
+    <div [ngStyle]="{'text-align': 'center', 'padding-top': '10px'}">
+      <button class="btn btn-outline-primary"  (click)="addProductToCart()">To Cart</button>
+    </div>
+  </div>
+</div>

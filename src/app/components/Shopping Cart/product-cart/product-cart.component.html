@@ -1,0 +1,7 @@
+<h2 [ngStyle]="{'text-align': 'right', 'padding-right': '10px'}" *ngIf="cart.length">Shopping cart</h2>
+<div *ngFor="let item of cart" class="list-group cartWrapper">
+  <app-product-cart-item [cartItem]="item"
+                         (changeCountEvent)="changeItemCount($event)"
+                         (removeEvent)="removeItemById($event)">
+  </app-product-cart-item>
+</div>
