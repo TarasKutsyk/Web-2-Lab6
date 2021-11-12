@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {ApiService} from "./api.service";
 
 import {ApiConfig} from "../config"
-import Product from "../models/Product";
+import Product, {ProductCart} from "../models/Product";
 import {Subject} from "rxjs";
 import {Action, ActionType} from "../models/Action";
 
@@ -34,6 +34,11 @@ export class ProductService {
 
   createProduct(product: Product) {
     return this.API.addItem(product, this.productsUrl);
+  }
+
+  postOrder(cartItems: Array<{productId ?: string, count: number}>) {
+    // @ts-ignore
+    return this.API.addItem({cartItems}, this.productsUrl + '/order');
   }
 
   updateProduct(product: Product) {

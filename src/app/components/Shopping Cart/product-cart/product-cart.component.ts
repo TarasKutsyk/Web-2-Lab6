@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Action } from 'src/app/models/Action';
 import Product, {ProductCart, ProductCartItem} from "../../../models/Product";
 import {ProductService, ProductAction} from "../../../services/product.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-product-cart',
@@ -73,6 +74,20 @@ export class ProductCartComponent implements OnInit {
     this.totalPrice = this.cart.reduce((accumulator, currentItem) => {
       return accumulator + currentItem.item.price * currentItem.count;
     }, 0)
+  }
+
+  submitOrder() {
+    const postBody = this.cart.map(cartItem => ({productId: cartItem.item._id, count: cartItem.count}));
+    this.productService.postOrder(postBody)
+      .subscribe(() => {
+          this.cart = [];
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.status === 0 ?
+            `A client error occurred: ${error.error}` :
+            `Order POST error: ${error.error}`);
+        }
+      );
   }
 
   ngOnInit(): void {

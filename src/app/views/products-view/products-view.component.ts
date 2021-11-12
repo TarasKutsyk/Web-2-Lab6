@@ -12,13 +12,13 @@ import {Action} from "../../models/Action";
   styleUrls: ['./products-view.component.scss']
 })
 export class ProductsViewComponent implements OnInit {
-  planets: Product[] = []
+  products: Product[] = []
   errorText?: string
 
-  constructor(private planetService: ProductService) {
-    planetService.getProducts().subscribe(items => this.planets = items);
+  constructor(private productService: ProductService) {
+    productService.getProducts().subscribe(items => this.products = items);
 
-    planetService.currentProductAction.subscribe((pa: ProductAction) => {
+    productService.currentProductAction.subscribe((pa: ProductAction) => {
       const { payload } = pa;
 
       if (pa.action === Action.Delete) {
@@ -35,31 +35,31 @@ export class ProductsViewComponent implements OnInit {
   }
 
   deleteProduct(currentProduct: Product) {
-    this.planetService.deleteProduct(currentProduct).subscribe(
+    this.productService.deleteProduct(currentProduct).subscribe(
       () => {
-        const planetIndex = this.planets.findIndex(planet => planet._id === currentProduct._id);
+        const productIndex = this.products.findIndex(product => product._id === currentProduct._id);
 
-        this.planets.splice(planetIndex, 1);
+        this.products.splice(productIndex, 1);
       },
       this.handleError('Product delete error')
     );
   }
 
   editProduct(newProduct: Product) {
-    this.planetService.updateProduct(newProduct)
+    this.productService.updateProduct(newProduct)
       .subscribe(() => {
-        const newProductIndex = this.planets.findIndex(planet => planet._id === newProduct._id);
+        const newProductIndex = this.products.findIndex(product => product._id === newProduct._id);
 
-        this.planets[newProductIndex] = newProduct;
+        this.products[newProductIndex] = newProduct;
       },
         this.handleError('Product update error')
       );
   }
 
-  addProduct(planet: Product) {
-    this.planetService.createProduct(planet)
+  addProduct(product: Product) {
+    this.productService.createProduct(product)
       .subscribe((newProduct: Product) => {
-        this.planets.push(newProduct);
+        this.products.push(newProduct);
       },
         this.handleError('Product create error')
     );
